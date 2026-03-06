@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do Avançado | Gerenciador de Tarefas</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Fonte usada no projeto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ============================================ -->
+    <!-- TELA 1: Login e Cadastro de usuário        -->
+    <!-- ============================================ -->
+    <div id="auth-screen" class="screen">
+        <div class="auth-container">
+            <header class="auth-header">
+                <h1>To-Do Avançado</h1>
+                <p class="auth-subtitle">Organize suas tarefas com progresso e tema escuro</p>
+            </header>
+
+            <!-- Abas para alternar entre Entrar e Cadastrar -->
+            <div class="auth-tabs">
+                <button type="button" class="auth-tab active" data-tab="login">Entrar</button>
+                <button type="button" class="auth-tab" data-tab="register">Cadastrar</button>
+            </div>
+
+            <!-- Formulário de login -->
+            <form id="login-form" class="auth-form">
+                <label for="login-email">E-mail</label>
+                <input type="email" id="login-email" required placeholder="seu@email.com">
+                <label for="login-password">Senha</label>
+                <input type="password" id="login-password" required placeholder="••••••••">
+                <button type="submit" class="btn btn-primary">Entrar</button>
+                <p id="login-error" class="form-error"></p>
+            </form>
+
+            <!-- Formulário de cadastro (escondido por padrão) -->
+            <form id="register-form" class="auth-form hidden">
+                <label for="register-name">Nome</label>
+                <input type="text" id="register-name" required placeholder="Seu nome">
+                <label for="register-email">E-mail</label>
+                <input type="email" id="register-email" required placeholder="seu@email.com">
+                <label for="register-password">Senha (mín. 6 caracteres)</label>
+                <input type="password" id="register-password" required minlength="6" placeholder="••••••••">
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+                <p id="register-error" class="form-error"></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- TELA 2: Aplicação principal (lista de tarefas) -->
+    <!-- ============================================ -->
+    <div id="app-screen" class="screen hidden">
+        <header class="app-header">
+            <div class="header-left">
+                <h2>Minhas Tarefas</h2>
+                <span id="user-name" class="user-badge"></span>
+            </div>
+            <div class="header-right">
+                <!-- Barra de progresso: quantas tarefas foram concluídas -->
+                <div class="progress-wrap">
+                    <span class="progress-label">Progresso</span>
+                    <div class="progress-bar">
+                        <div id="progress-fill" class="progress-fill"></div>
+                    </div>
+                    <span id="progress-text" class="progress-text">0%</span>
+                </div>
+                <!-- Botão para alternar entre tema claro e escuro -->
+                <button type="button" id="theme-toggle" class="btn btn-icon" title="Alternar tema">
+                    <span class="icon-sun">☀️</span>
+                    <span class="icon-moon">🌙</span>
+                </button>
+                <button type="button" id="logout-btn" class="btn btn-outline">Sair</button>
+            </div>
+        </header>
+
+        <main class="app-main">
+            <!-- Formulário para adicionar nova tarefa -->
+            <div class="task-form-wrap">
+                <form id="task-form">
+                    <input type="text" id="task-title" placeholder="Nova tarefa..." required>
+                    <input type="text" id="task-description" placeholder="Descrição (opcional)">
+                    <button type="submit" class="btn btn-primary">Adicionar</button>
+                </form>
+            </div>
+
+            <!-- Filtros: Todas, Pendentes ou Concluídas -->
+            <div class="filters">
+                <button type="button" class="filter-btn active" data-filter="all">Todas</button>
+                <button type="button" class="filter-btn" data-filter="pending">Pendentes</button>
+                <button type="button" class="filter-btn" data-filter="completed">Concluídas</button>
+            </div>
+
+            <!-- Lista onde as tarefas aparecem -->
+            <ul id="task-list" class="task-list"></ul>
+            <!-- Mensagem quando não há tarefas -->
+            <p id="empty-state" class="empty-state hidden">Nenhuma tarefa. Adicione uma acima.</p>
+        </main>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Modal: editar tarefa (abre ao clicar em Editar) -->
+    <!-- ============================================ -->
+    <div id="edit-modal" class="modal hidden">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <h3>Editar tarefa</h3>
+            <form id="edit-form">
+                <input type="hidden" id="edit-id">
+                <label for="edit-title">Título</label>
+                <input type="text" id="edit-title" required>
+                <label for="edit-description">Descrição</label>
+                <input type="text" id="edit-description">
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-outline" id="edit-cancel">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
